@@ -34,7 +34,7 @@ const Login = () => {
       axios
         .post(`${Global.BASE_BACKEND_API}/register`, userDetail)
         .then((res) => {
-          localStorage.admin = JSON.stringify(res);
+          localStorage.admin = JSON.stringify(res.data);
           navigate('/dashboard');
         })
         .catch((err) => {
@@ -52,9 +52,9 @@ const Login = () => {
       axios
         .post(`${Global.BASE_BACKEND_API}/login`, userDetail)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
           if (res.isAdmin) {
-            localStorage.admin = JSON.stringify(res);
+            localStorage.admin = JSON.stringify(res.data);
             navigate('/dashboard');
           } else {
             setErr("This account doesn't have permission");
