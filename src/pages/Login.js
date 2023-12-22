@@ -53,7 +53,7 @@ const Login = () => {
         .post(`${Global.BASE_BACKEND_API}/login`, userDetail)
         .then((res) => {
           console.log(res.data);
-          if (res.isAdmin) {
+          if (res.data.isAdmin) {
             localStorage.admin = JSON.stringify(res.data);
             navigate('/dashboard');
           } else {
