@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import styles from './Login.module.css';
 import Global from '../global';
+import axios from 'axios';
 
 const Login = () => {
   // localStorage.removeItem("admin");
@@ -29,26 +30,11 @@ const Login = () => {
         phoneNumber: phoneRef.current.value,
         isAdmin: true,
       };
-      fetch(`${Global.BASE_BACKEND_API}/register`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userDetail),
-      })
+
+      axios
+        .post(`${Global.BASE_BACKEND_API}/register`, userDetail)
         .then((res) => {
-          if (!res.ok) {
-            throw new Error(res.statusText);
-          }
-          return res.json();
-        })
-        .then((result) => {
-          console.log(result);
           localStorage.admin = JSON.stringify(result);
-          // setTimeout(() => {
-          //   localStorage.removeItem("userId");
-          // }, 10000);
           navigate('/dashboard');
         })
         .catch((err) => {
@@ -62,21 +48,10 @@ const Login = () => {
         password: passwordRef.current.value,
       };
       console.log(userDetail);
-      fetch(`${Global.BASE_BACKEND_API}/login`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userDetail),
-      })
+
+      axios
+        .post(`${Global.BASE_BACKEND_API}/login`, userDetail)
         .then((res) => {
-          if (!res.ok) {
-            throw new Error(res.statusText);
-          }
-          return res.json();
-        })
-        .then((result) => {
           console.log(result);
           if (result.isAdmin) {
             localStorage.admin = JSON.stringify(result);
