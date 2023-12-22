@@ -63,7 +63,7 @@ const Hotel = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/hotel')
+    fetch(`'${Global.BASE_BACKEND_API}/hotel`)
       .then((res) => res.json())
       .then((data) => setHotelsArr(data))
       .catch((err) => console.log(err));
